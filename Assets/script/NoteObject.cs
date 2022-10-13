@@ -10,28 +10,40 @@ public class NoteObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(keyToPress)){
-            if(canBePressed){
+        if (Input.GetKeyDown(keyToPress))
+        {
+            if (canBePressed)
+            {
+                
+                GameManager.instance.NoteHit();
                 gameObject.SetActive(false);
+
             }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other){
-        if(other.tag == "Activator"){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Activator")
+        {
             canBePressed = true;
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
 
-    private void OnTriggerExit2D(Collider2D other){
-        if(other.tag == "Activator"){
+        if (collision.tag == "Activator" && gameObject.activeSelf)
+        {
             canBePressed = false;
+            GameManager.instance.NoteMissed();
+            
         }
+
     }
 }
