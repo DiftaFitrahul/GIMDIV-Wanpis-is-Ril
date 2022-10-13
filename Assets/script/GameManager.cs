@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,11 +10,25 @@ public class GameManager : MonoBehaviour
 
     public BeatScroller theBS;
 
+    public int currentScore;
+    public int scorePerNote = 100;
+
+    public int currentMultiplier;
+    public int multiplierTracker;
+    public int[] multiplierThresholds;
+
+
+    public Text scoreText;
+    public Text multiText;
+
     public static GameManager instance;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+
+        scoreText.text = "Score: 0";
+        currentMultiplier = 1;
     }
 
     // Update is called once per frame
@@ -35,6 +50,8 @@ public class GameManager : MonoBehaviour
     public void NoteHit()
     {
         Debug.Log("Hit on Time");
+        currentScore += scorePerNote;
+        scoreText.text = "Score: " + currentScore;
     }
 
     public void NoteMissed()
